@@ -4,25 +4,26 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col"> Nome</th>
-        <th scope="col"> Nome Civil</th>
-        <th scope="col"> Sexo</th>
-        <th scope="col"> Data de Nascimento</th>
-        <th scope="col"> Falecimento</th>
-        <th scope="col"> Local de Nascimento</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Sexo</th>
+        <th scope="col">Partido</th>
+        <th scope="col">Data Início Legislatura</th>
+        <th scope="col">Data Fim Legislatura</th>
+        <th scope="col">Email</th>
       </tr>
     </thead>
     <tbody>
       {% for deputado in deputados %}
         <tr>
-          <th scope="row">{{ deputado.nome | title }}</th>
-          <td>{{ deputado.nomeCivil}}</td>
-          <td>{{ deputado.siglaSexo or "desconhecido"}}</td>
-          <td>{{ deputado.dataNascimento or "desconhecido"}}</td>
-          <td>{{ deputado.dataFalecimento or "Ainda vivo"}}</td>
-          <td>{{ deputado.ufNascimento or "desconhecido"}}</td>
+          <td><a href="/deputado/{{ deputado.idDeputado }}">{{ deputado.nome | title }}</a></td>
+          <td>{{ deputado.sexo }}</td>
+          <td>{{deputado.nomePartido}}</td>
+          <td>{{ deputado.dataInicioLegislatura }}</td>
+          <td>{{ deputado.dataFimLegislatura }}</td>
+          <td>{{ deputado.email }}</td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
 {% endblock %}
+
