@@ -72,5 +72,58 @@ def partidos():
 
     return render_template("partido.html", partidos=partidos)
 
+@app.route('/despesas')
+def despesas_por_deputado():
+    with connection.cursor() as cursor:
+        sql = """
+            SELECT
+                D.nome AS Nome_Deputado,
+                P.nome AS Nome_Partido,
+                COALESCE(SUM(DP.valor), 0) AS Soma_Despesas
+            FROM Deputados D
+            LEFT JOIN Despesas DP ON D.idDeputado = DP.idDeputado
+            LEFT JOIN Partido P ON D.idPartido = P.idPartido
+            GROUP BY D.nome, P.nome
+            ORDER BY Soma_Despesas DESC;
+        """
+        cursor.execute(sql)
+        despesas = cursor.fetchall()
+
+    return render_template('despesas.html', despesas=despesas)
+
+@app.route('/despesasMediaPartido')
+def media_despesas_por_partido():
+    with connection.cursor() as cursor:
+        sql = """
+            SELECT Partido.sigla AS Sigla_Partido,
+                (SELECT AVG(Despesas.valor)
+                FROM Despesas
+                INNER JOIN Deputados ON Despesas.idDeputado = Deputados.idDeputado
+                WHERE Deputados.idPartido = Partido.idPartido) AS Media_Despesas_Por_Partido
+            FROM Partido;
+        """
+        cursor.execute(sql)
+        partidos = cursor.fetchall()
+
+    return render_template('despesaMediaPartido.html', partidos=partidos)
+
+@app.route('/despesaPartido')
+def despesa_por_partido():
+    with connection.cursor() as cursor:
+        sql = """
+            SELECT Partido.sigla AS Sigla_Partido,
+                COALESCE(SUM(Despesas.valor), 0) AS Total_Despesas
+            FROM Partido
+            LEFT JOIN Deputados ON Partido.idPartido = Deputados.idPartido
+            LEFT JOIN Despesas ON Deputados.idDeputado = Despesas.idDeputado
+            GROUP BY Partido.sigla;
+        """
+        cursor.execute(sql)
+        partidos = cursor.fetchall()
+
+    return render_template('despesaPartido.html', partidos=partidos)
+
+
+
 if __name__ == '__main__':
     app.run(debug = True)
