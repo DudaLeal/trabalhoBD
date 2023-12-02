@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %} Deputados - Banco de Dados aberto {% endblock %}
 {% block content %}
+  <h1 text-align="center">Deputados eleitos em 2022</h1>
   <table class="table">
     <thead>
       <tr>
@@ -15,7 +16,7 @@
     <tbody>
       {% for deputado in deputados %}
         <tr>
-          <td><a href="/deputado/{{ deputado.idDeputado }}">{{ deputado.nome | title }}</a></td>
+          <td><a>{{ deputado.nome | title }}</a></td>
           <td>{{ deputado.sexo }}</td>
           <td>{{deputado.nomePartido}}</td>
           <td>{{ deputado.dataInicioLegislatura }}</td>

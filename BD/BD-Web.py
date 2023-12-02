@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 import pymysql.cursors
 
-
 # Creando a conexão com o Bando de Dados -> importante já ter ele salvo.
 host = 'localhost'
 user = 'root'
@@ -16,7 +15,7 @@ connection = pymysql.connect(host=host, user=user, password=password, database=d
 app = Flask(__name__)
 
 
-@app.route('/deputados')
+@app.route('/')
 def deputados():
     with connection.cursor() as cursor:
         query_args = []
@@ -44,7 +43,7 @@ def deputados():
 
     return render_template("deputados.html", deputados=deputados, search=request.args.get("search"))
 
-@app.route('/g1')
+@app.route('/coordenadores')
 def genero():
     with connection.cursor() as cursor:
         sql = """
@@ -58,7 +57,7 @@ def genero():
 
     return render_template("genero.html", deputados=deputados)
 
-@app.route('/g2')
+@app.route('/partidos')
 def partidos():
     with connection.cursor() as cursor:
         sql = """
