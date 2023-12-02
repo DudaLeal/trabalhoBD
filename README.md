@@ -27,8 +27,3 @@ Página web com informações sobre os deputados e alguns gráficos para analise
 - **/despesas**: Mostra o total de despesas que cada deputado teve desde de janeiro até outubro 2023.
 - **/despesaMediaPartido**: Mostra os partidos que tiveram as despesas acima da média no periodo de janeiro até outubro 2023.
 - **/despesaPartido**: Mostra o total de despesas que cada partido teve no período de janeiro até outubro 2023.
-
-## Autores
-- [Eduarda Leal](https://github.com/DudaLeal)
-- [Lucas Marques](https://github.com/casluMarques)
-
